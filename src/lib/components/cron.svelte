@@ -5,7 +5,11 @@
 
   const weekdayLetters = ["S", "M", "T", "W", "T", "F", "S"];
 
-  let { value = $bindable(""), readonly = false } = $props();
+  let {
+    value = $bindable(""),
+    readonly = false,
+    hideLabels = false,
+  } = $props();
 
   function parseTimeFromCron() {
     const [m, h] = value.split(" ");
@@ -30,17 +34,23 @@
 
 <div class="flex items-center gap-4">
   <div class="flex w-full max-w-sm flex-col gap-1.5">
-    <Label for="time">Time</Label>
+    {#if !hideLabels}
+      <Label for="time">Time</Label>
+    {/if}
     <Input type="time" id="time" bind:value={time} {readonly} />
   </div>
 
   <div class="flex w-full max-w-sm flex-col gap-1.5">
-    <Label for="weekdays">Weekdays</Label>
+    {#if !hideLabels}
+      <Label for="weekdays">Weekdays</Label>
+    {/if}
+
     <ToggleGroup.Root
       bind:value={weekdays}
+      id="weekdays"
+      variant="outline"
       type="multiple"
       disabled={readonly}
-      id="weekdays"
     >
       {#each Array.from({ length: 7 }, (e, i) => i) as weekdayIndex}
         <ToggleGroup.Item value={String(weekdayIndex)}>

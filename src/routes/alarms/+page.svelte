@@ -12,8 +12,8 @@
   let { data }: PageProps = $props();
 </script>
 
-<div class="flex items-center justify-between">
-  <h2 class="text-2xl my-2">My alarms</h2>
+<div class="flex items-center justify-between my-4">
+  <h2 class="text-2xl">My alarms</h2>
   <Button href="/alarms/new">
     <PlusIcon />
     New
@@ -21,14 +21,14 @@
 </div>
 
 <Table.Root>
-  <Table.Header>
+  <!-- <Table.Header>
     <Table.Row>
       <Table.Head>Name</Table.Head>
       <Table.Head>Schedule</Table.Head>
       <Table.Head>Enabled</Table.Head>
       <Table.Head>Edit</Table.Head>
     </Table.Row>
-  </Table.Header>
+  </Table.Header> -->
   <Table.Body>
     {#each data.items as alarm (alarm.id)}
       <Table.Row>
@@ -36,7 +36,7 @@
           <a href={`/alarms/${alarm.id}`}>{alarm.name}</a>
         </Table.Cell>
         <Table.Cell>
-          <Cron value={alarm.cron as string} readonly />
+          <Cron value={alarm.cron as string} readonly hideLabels />
         </Table.Cell>
         <Table.Cell>
           {#if alarm.enabled}
