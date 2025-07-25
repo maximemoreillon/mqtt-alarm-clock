@@ -1,4 +1,4 @@
-import { createAlarm } from "$lib/server/alarms.js";
+import { createAlarm, readAlarms } from "$lib/server/alarms.js";
 import { stopAllJobs } from "$lib/server/cron.js";
 import { json } from "@sveltejs/kit";
 import { z } from "zod";
@@ -6,17 +6,19 @@ import { z } from "zod";
 export async function GET({ request, locals }) {
   const session = await locals.auth();
   if (!session?.user?.name)
-    new Response("Auinauthorized", {
+    new Response("Unauthorized", {
       status: 401,
     });
 
-  return json({ hello: "world" });
+  const result = await readAlarms();
+
+  return json(result);
 }
 
 export async function DELETE({ request, locals }) {
   const session = await locals.auth();
   if (!session?.user?.name)
-    new Response("Auinauthorized", {
+    new Response("Unauthorized", {
       status: 401,
     });
   await stopAllJobs();
@@ -35,7 +37,7 @@ const newAlarmSchema = z.object({
 export async function POST({ request, locals }) {
   const session = await locals.auth();
   if (!session?.user?.name)
-    new Response("Auinauthorized", {
+    new Response("Unauthorized", {
       status: 401,
     });
   const body = await request.json();
