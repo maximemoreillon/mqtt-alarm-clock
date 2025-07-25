@@ -6,7 +6,7 @@ import { z } from "zod";
 export async function GET({ request, locals }) {
   const session = await locals.auth();
   if (!session?.user?.name)
-    new Response("Unauthorized", {
+    return new Response("Unauthorized", {
       status: 401,
     });
 
@@ -18,7 +18,7 @@ export async function GET({ request, locals }) {
 export async function DELETE({ request, locals }) {
   const session = await locals.auth();
   if (!session?.user?.name)
-    new Response("Unauthorized", {
+    return new Response("Unauthorized", {
       status: 401,
     });
   await stopAllJobs();
@@ -37,7 +37,7 @@ const newAlarmSchema = z.object({
 export async function POST({ request, locals }) {
   const session = await locals.auth();
   if (!session?.user?.name)
-    new Response("Unauthorized", {
+    return new Response("Unauthorized", {
       status: 401,
     });
   const body = await request.json();

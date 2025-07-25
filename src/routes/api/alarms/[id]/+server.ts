@@ -5,7 +5,7 @@ import z from "zod";
 export async function DELETE({ params, locals }) {
   const session = await locals.auth();
   if (!session?.user?.name)
-    new Response("Unauthorized", {
+    return new Response("Unauthorized", {
       status: 401,
     });
 
@@ -25,7 +25,7 @@ const alarmUpdateSchema = z.object({
 export async function PATCH({ params, request, locals }) {
   const session = await locals.auth();
   if (!session?.user?.name)
-    new Response("Unauthorized", {
+    return new Response("Unauthorized", {
       status: 401,
     });
 
