@@ -17,6 +17,9 @@ const config = {
       "@/*": "./path/to/lib/*",
     },
   },
+
+  // TODO: remove once testing is finished
+  csrf: { checkOrigin: false },
 };
 
 export default config;
