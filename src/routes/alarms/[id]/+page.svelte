@@ -1,12 +1,15 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
+  import { toast } from "svelte-sonner";
   import Button from "$lib/components/ui/button/button.svelte";
   import { Label } from "$lib/components/ui/label/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Switch } from "$lib/components/ui/switch/index.js";
-  import { toast } from "svelte-sonner";
+  import DeleteIcon from "@lucide/svelte/icons/delete";
+  import SaveIcon from "@lucide/svelte/icons/save";
+  import { goto } from "$app/navigation";
   import Cron from "$lib/components/cron.svelte";
   import type { PageProps } from "./$types";
+  import ReturnLink from "$lib/components/returnLink.svelte";
 
   let { data }: PageProps = $props();
   let alarm = $state(data); // for reactivity
@@ -38,13 +41,17 @@
 </script>
 
 <div>
-  <a href="/alarms">Return to alarm list</a>
+  <ReturnLink />
 </div>
 <div class="flex justify-between items-center">
   <h2 class="text-2xl my-2">{alarm.name}</h2>
   <div class="flex gap-2">
-    <Button onclick={handleUpdate} disabled={saving}>Save</Button>
+    <Button onclick={handleUpdate} disabled={saving}>
+      <SaveIcon />
+      Save
+    </Button>
     <Button onclick={handleDelete} variant="destructive" disabled={deleting}>
+      <DeleteIcon />
       Delete
     </Button>
   </div>

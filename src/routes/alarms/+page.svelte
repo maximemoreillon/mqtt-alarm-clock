@@ -3,7 +3,10 @@
   import * as Table from "$lib/components/ui/table/index.js";
   import Button from "$lib/components/ui/button/button.svelte";
   import BellIcon from "@lucide/svelte/icons/bell";
-  import BellIOffcon from "@lucide/svelte/icons/bell-off";
+  import BellOffIcon from "@lucide/svelte/icons/bell-off";
+  import PlusIcon from "@lucide/svelte/icons/plus";
+  import PencilIcon from "@lucide/svelte/icons/pencil";
+
   import Cron from "$lib/components/cron.svelte";
 
   let { data }: PageProps = $props();
@@ -11,7 +14,10 @@
 
 <div class="flex items-center justify-between">
   <h2 class="text-2xl my-2">My alarms</h2>
-  <Button href="/alarms/new">Create new alarm</Button>
+  <Button href="/alarms/new">
+    <PlusIcon />
+    New
+  </Button>
 </div>
 
 <Table.Root>
@@ -20,6 +26,7 @@
       <Table.Head>Name</Table.Head>
       <Table.Head>Schedule</Table.Head>
       <Table.Head>Enabled</Table.Head>
+      <Table.Head>Edit</Table.Head>
     </Table.Row>
   </Table.Header>
   <Table.Body>
@@ -35,8 +42,14 @@
           {#if alarm.enabled}
             <BellIcon />
           {:else}
-            <BellIOffcon />
+            <BellOffIcon />
           {/if}
+        </Table.Cell>
+        <Table.Cell>
+          <Button href={`/alarms/${alarm.id}`}>
+            <PencilIcon />
+            Edit
+          </Button>
         </Table.Cell>
       </Table.Row>
     {/each}
