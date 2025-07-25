@@ -26,12 +26,6 @@ const newAlarmSchema = z.object({
 export async function POST({ request }) {
   const body = await request.json();
   const alarmProperties = newAlarmSchema.parse(body);
-
-  console.log(alarmProperties);
-
   await createAlarm(alarmProperties);
-
-  // TODO: zod validation
-
   return json({ alarmProperties });
 }

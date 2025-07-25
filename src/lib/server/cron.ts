@@ -12,27 +12,34 @@ export async function stopAllJobs() {
 }
 
 export async function recreateCronJobs() {
-  console.log("[CRON] recreateCronJobs");
   await stopAllJobs();
 
   const alarms = await db.select().from(alarmsTable);
 
   alarms.forEach((alarm) => {
-    console.log(`[CRON] Registering cron job for alarm named ${alarm.name}`);
+    console.log(
+      `[CRON] Registering cron job for alarm "${alarm.name}" (ID: ${alarm.id})`
+    );
     if (!alarm.cron) {
-      console.log(`Alarm ${alarm.id} has no cron`);
+      console.log(`[CRON] Alarm ${alarm.id} has no cron`);
       return;
     }
 
     if (!alarm.enabled) {
-      console.log(`Alarm ${alarm.id} is disabled`);
+      console.log(`[CRON] Alarm ${alarm.id} is disabled, skipping...`);
       return;
     }
 
     cron.schedule(alarm.cron, () => {
       // TODO: MQTT publish
-      console.log(`[CRON] Running task for alarm ${alarm.name}`);
+      console.log(
+        `[CRON] Running task for alarm "${alarm.name}" (ID: ${alarm.id})`
+      );
       publish();
     });
   });
+
+  console.log(
+    `[CRON] Currently ${[...cron.getTasks().keys()].length} tasks registered`
+  );
 }
