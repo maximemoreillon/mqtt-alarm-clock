@@ -3,6 +3,12 @@ import { json } from "@sveltejs/kit";
 import z from "zod";
 
 export async function DELETE({ params, locals }) {
+  const session = await locals.auth();
+  if (!session?.user?.name)
+    new Response("Auinauthorized", {
+      status: 401,
+    });
+
   const id = Number(params.id);
 
   await deleteAlarm(id);
@@ -17,6 +23,12 @@ const alarmUpdateSchema = z.object({
 });
 
 export async function PATCH({ params, request, locals }) {
+  const session = await locals.auth();
+  if (!session?.user?.name)
+    new Response("Auinauthorized", {
+      status: 401,
+    });
+
   const id = Number(params.id);
   const body = await request.json();
   const alarmProperties = alarmUpdateSchema.parse(body);
