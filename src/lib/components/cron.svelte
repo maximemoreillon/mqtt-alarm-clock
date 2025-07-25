@@ -29,13 +29,24 @@
 </script>
 
 <div class="flex items-center gap-4">
-  <Input type="time" id="time" bind:value={time} {readonly} />
+  <div class="flex w-full max-w-sm flex-col gap-1.5">
+    <Label for="time">Time</Label>
+    <Input type="time" id="time" bind:value={time} {readonly} />
+  </div>
 
-  <ToggleGroup.Root bind:value={weekdays} type="multiple" disabled={readonly}>
-    {#each Array.from({ length: 7 }, (e, i) => i) as weekdayIndex}
-      <ToggleGroup.Item value={String(weekdayIndex)}>
-        {weekdayLetters[weekdayIndex]}
-      </ToggleGroup.Item>
-    {/each}
-  </ToggleGroup.Root>
+  <div class="flex w-full max-w-sm flex-col gap-1.5">
+    <Label for="weekdays">Weekdays</Label>
+    <ToggleGroup.Root
+      bind:value={weekdays}
+      type="multiple"
+      disabled={readonly}
+      id="weekdays"
+    >
+      {#each Array.from({ length: 7 }, (e, i) => i) as weekdayIndex}
+        <ToggleGroup.Item value={String(weekdayIndex)}>
+          {weekdayLetters[weekdayIndex]}
+        </ToggleGroup.Item>
+      {/each}
+    </ToggleGroup.Root>
+  </div>
 </div>
