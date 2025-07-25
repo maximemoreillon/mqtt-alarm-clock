@@ -2,8 +2,8 @@
   import { Label } from "$lib/components/ui/label/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import * as ToggleGroup from "$lib/components/ui/toggle-group/index.js";
-
-  const weekdayLetters = ["S", "M", "T", "W", "T", "F", "S"];
+  import { parseTimeFromCron, parseWeekdaysFromCron } from "$lib/cronParsing";
+  import weekdayLetters from "$lib/weekdays";
 
   let {
     value = $bindable(""),
@@ -11,19 +11,8 @@
     hideLabels = false,
   } = $props();
 
-  function parseTimeFromCron() {
-    const [m, h] = value.split(" ");
-    return `${h.padStart(2, "0")}:${m.padStart(2, "0")}`;
-  }
-
-  function parseWeekdaysFromCron() {
-    const wdCron = value.split(" ").at(4);
-    if (!wdCron) throw new Error("Missing cron field for weekdays");
-    return wdCron.split(",");
-  }
-
-  let time = $state(parseTimeFromCron());
-  let weekdays = $state(parseWeekdaysFromCron());
+  let time = $state(parseTimeFromCron(value));
+  let weekdays = $state(parseWeekdaysFromCron(value));
 
   $effect(() => {
     const [h, m] = time.split(":");
