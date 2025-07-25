@@ -31,7 +31,7 @@ export async function recreateCronJobs() {
     }
 
     try {
-      cron.schedule(alarm.cron, publish);
+      cron.schedule(alarm.cron, publish, { timezone: "Asia/Tokyo" });
     } catch (error) {
       console.log(
         `[CRON] Registration failed for alarm ${alarm.id} with cron "${alarm.cron}"`

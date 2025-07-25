@@ -57,21 +57,22 @@
   </div>
 </div>
 
-<div class="flex gap-4 my-4">
-  <div class="flex w-full max-w-sm flex-col gap-1.5">
-    <Label for="name">Name</Label>
-    <Input
-      type="text"
-      id="name"
-      placeholder="Weekdays"
-      bind:value={alarm.name}
-    />
-  </div>
+<div class="flex flex-col items-stretch gap-4">
+  <div class="flex gap-4 my-4 items-center">
+    <div class="flex flex-col gap-1.5 grow">
+      <Label for="name">Name</Label>
+      <Input
+        type="text"
+        id="name"
+        placeholder="Weekdays"
+        bind:value={alarm.name}
+      />
+    </div>
 
+    <div class="flex items-center gap-2 shrink">
+      <Switch id="enabled" bind:checked={alarm.enabled} />
+      <Label for="enabled">Enabled</Label>
+    </div>
+  </div>
   <Cron bind:value={alarm.cron as string} />
-
-  <div class="flex items-center gap-2">
-    <Switch id="enabled" bind:checked={alarm.enabled} />
-    <Label for="enabled">Enabled</Label>
-  </div>
 </div>

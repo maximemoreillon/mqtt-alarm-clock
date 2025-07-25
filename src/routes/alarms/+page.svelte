@@ -8,6 +8,7 @@
   import PencilIcon from "@lucide/svelte/icons/pencil";
 
   import Cron from "$lib/components/cron.svelte";
+  import * as Card from "$lib/components/ui/card/index.js";
 
   let { data }: PageProps = $props();
 </script>
@@ -20,38 +21,31 @@
   </Button>
 </div>
 
-<Table.Root>
-  <!-- <Table.Header>
-    <Table.Row>
-      <Table.Head>Name</Table.Head>
-      <Table.Head>Schedule</Table.Head>
-      <Table.Head>Enabled</Table.Head>
-      <Table.Head>Edit</Table.Head>
-    </Table.Row>
-  </Table.Header> -->
-  <Table.Body>
-    {#each data.items as alarm (alarm.id)}
-      <Table.Row>
-        <Table.Cell>
-          <a href={`/alarms/${alarm.id}`}>{alarm.name}</a>
-        </Table.Cell>
-        <Table.Cell>
-          <Cron value={alarm.cron as string} readonly hideLabels />
-        </Table.Cell>
-        <Table.Cell>
+<div class="flex flex-col gap-4">
+  {#each data.items as alarm (alarm.id)}
+    <Card.Root>
+      <Card.Header class="flex justify-between">
+        <Card.Title>
+          {alarm.name}
+        </Card.Title>
+
+        <Button href={`/alarms/${alarm.id}`}>
+          <PencilIcon />
+        </Button>
+
+        <!-- <Card.Description>Card Description</Card.Description> -->
+      </Card.Header>
+      <Card.Content class="flex justify-between">
+        <Cron value={alarm.cron as string} readonly hideLabels />
+        <div>
           {#if alarm.enabled}
             <BellIcon />
           {:else}
             <BellOffIcon />
           {/if}
-        </Table.Cell>
-        <Table.Cell>
-          <Button href={`/alarms/${alarm.id}`}>
-            <PencilIcon />
-            Edit
-          </Button>
-        </Table.Cell>
-      </Table.Row>
-    {/each}
-  </Table.Body>
-</Table.Root>
+        </div>
+      </Card.Content>
+      <!-- <Card.Footer></Card.Footer> -->
+    </Card.Root>
+  {/each}
+</div>

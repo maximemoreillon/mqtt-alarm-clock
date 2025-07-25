@@ -7,9 +7,9 @@
 
 <Toaster />
 <ModeWatcher />
-<header class="border-lightgrey border-b-1">
+<header class="border-b-1">
   <h1 class="text-3xl m-4">MQTT Alarm clock</h1>
 </header>
-<main class="p-2 max-w-3xl mx-auto">
+<main class="p-2 max-w-2xl mx-auto">
   {@render children()}
 </main>

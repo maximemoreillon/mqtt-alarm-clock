@@ -32,15 +32,15 @@
   });
 </script>
 
-<div class="flex items-center gap-4">
-  <div class="flex w-full max-w-sm flex-col gap-1.5">
+<div class="flex items-center gap-4 justify-between">
+  <div class="flex flex-col gap-1.5">
     {#if !hideLabels}
       <Label for="time">Time</Label>
     {/if}
     <Input type="time" id="time" bind:value={time} {readonly} />
   </div>
 
-  <div class="flex w-full max-w-sm flex-col gap-1.5">
+  <div class="flex flex-col gap-1.5">
     {#if !hideLabels}
       <Label for="weekdays">Weekdays</Label>
     {/if}
