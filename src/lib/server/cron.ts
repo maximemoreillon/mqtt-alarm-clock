@@ -30,13 +30,14 @@ export async function recreateCronJobs() {
       return;
     }
 
-    cron.schedule(alarm.cron, () => {
-      // TODO: MQTT publish
+    try {
+      cron.schedule(alarm.cron, publish);
+    } catch (error) {
       console.log(
-        `[CRON] Running task for alarm "${alarm.name}" (ID: ${alarm.id})`
+        `[CRON] Registration failed for alarm ${alarm.id} with cron "${alarm.cron}"`
       );
-      publish();
-    });
+      console.error(error);
+    }
   });
 
   console.log(

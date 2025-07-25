@@ -4,6 +4,7 @@
   import Button from "$lib/components/ui/button/button.svelte";
   import BellIcon from "@lucide/svelte/icons/bell";
   import BellIOffcon from "@lucide/svelte/icons/bell-off";
+  import Cron from "$lib/components/cron.svelte";
 
   let { data }: PageProps = $props();
 </script>
@@ -17,7 +18,7 @@
   <Table.Header>
     <Table.Row>
       <Table.Head>Name</Table.Head>
-      <Table.Head>Cron</Table.Head>
+      <Table.Head>Schedule</Table.Head>
       <Table.Head>Enabled</Table.Head>
     </Table.Row>
   </Table.Header>
@@ -27,7 +28,9 @@
         <Table.Cell>
           <a href={`/alarms/${alarm.id}`}>{alarm.name}</a>
         </Table.Cell>
-        <Table.Cell>{alarm.cron}</Table.Cell>
+        <Table.Cell>
+          <Cron value={alarm.cron as string} readonly />
+        </Table.Cell>
         <Table.Cell>
           {#if alarm.enabled}
             <BellIcon />

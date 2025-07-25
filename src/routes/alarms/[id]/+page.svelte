@@ -4,7 +4,7 @@
   import { Label } from "$lib/components/ui/label/index.js";
   import { Input } from "$lib/components/ui/input/index.js";
   import { Switch } from "$lib/components/ui/switch/index.js";
-
+  import Cron from "$lib/components/cron.svelte";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -41,9 +41,9 @@
   </div>
 </div>
 
-<div class="flex gap-4">
+<div class="flex gap-4 my-4">
   <div class="flex w-full max-w-sm flex-col gap-1.5">
-    <Label for="name">Name</Label>
+    <!-- <Label for="name">Name</Label> -->
     <Input
       type="text"
       id="name"
@@ -52,17 +52,9 @@
     />
   </div>
 
-  <div class="flex w-full max-w-sm flex-col gap-1.5">
-    <Label for="cron">cron</Label>
-    <Input
-      type="text"
-      id="cron"
-      placeholder="* * * * *"
-      bind:value={alarm.cron}
-    />
-  </div>
+  <Cron bind:value={alarm.cron as string} />
 
-  <div class="flex items-center space-x-2">
+  <div class="flex items-center gap-2">
     <Switch id="enabled" bind:checked={alarm.enabled} />
     <Label for="enabled">Enabled</Label>
   </div>
