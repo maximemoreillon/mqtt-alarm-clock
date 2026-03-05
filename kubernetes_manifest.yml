@@ -75,4 +75,4 @@ spec:
     creationPolicy: Orphan
   dataFrom:
     - extract:
-        key: mqtt-alarm-clockn
+        key: mqtt-alarm-clock
