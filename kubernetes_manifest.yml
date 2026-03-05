@@ -17,9 +17,7 @@ spec:
           image: ${CONTAINER_IMAGE_TAGGED}
           envFrom:
             - secretRef:
-                name: auth0-env
-            - secretRef:
-                name: ${APPLICATION_NAME}
+                name: mqtt-alarm-clock-env-from-vault
           resources: {}
 
 ---
@@ -62,3 +60,19 @@ spec:
                 name: ${APPLICATION_NAME}
                 port:
                   number: 3000
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: mqtt-alarm-clock-env
+spec:
+  refreshInterval: 5m0s
+  secretStoreRef:
+    name: vault
+    kind: ClusterSecretStore
+  target:
+    name: mqtt-alarm-clock-env-from-vault
+    creationPolicy: Orphan
+  dataFrom:
+    - extract:
+        key: tmqtt-alarm-clockn
