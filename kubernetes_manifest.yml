@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ${APPLICATION_NAME}
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -76,3 +78,17 @@ spec:
   dataFrom:
     - extract:
         key: mqtt-alarm-clock
+  data:
+    # Auth.js
+    - secretKey: AUTH_KEYCLOAK_ID
+      remoteRef:
+        key: keycloak-main-client
+        property: CLIENT_ID
+    - secretKey: AUTH_KEYCLOAK_SECRET
+      remoteRef:
+        key: keycloak-main-client
+        property: CLIENT_SECRET
+    - secretKey: AUTH_KEYCLOAK_ISSUER
+      remoteRef:
+        key: keycloak-main-client
+        property: ISSUER
