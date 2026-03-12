@@ -79,7 +79,7 @@ spec:
     - extract:
         key: mqtt-alarm-clock
   data:
-    # Auth.js
+    # OIDC
     - secretKey: AUTH_KEYCLOAK_ID
       remoteRef:
         key: keycloak-main-client
@@ -92,3 +92,12 @@ spec:
       remoteRef:
         key: keycloak-main-client
         property: ISSUER
+    # MQTT
+    - secretKey: MQTT_PASSWORD
+      remoteRef:
+        key: mqtt
+        property: PASSWORD
+    - secretKey: MQTT_USERNAME
+      remoteRef:
+        key: mqtt
+        property: USERNAME
