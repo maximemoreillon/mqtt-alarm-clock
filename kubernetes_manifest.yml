@@ -28,7 +28,7 @@ kind: Service
 metadata:
   name: ${APPLICATION_NAME}
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app.kubernetes.io/name: ${APPLICATION_NAME}
   ports:
