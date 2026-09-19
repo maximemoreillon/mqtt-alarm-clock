@@ -119,11 +119,12 @@ spec:
       kind: Gateway
       name: eg
       namespace: envoy-gateway-system
+      sectionName: https
   rules:
     - backendRefs:
         - group: ""
           kind: Service
-          name: outfit-manager
+          name: mqtt-alarm-clock
           port: 3000
           weight: 1
       matches:
