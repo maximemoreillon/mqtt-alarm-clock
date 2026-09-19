@@ -33,35 +33,7 @@ spec:
     app.kubernetes.io/name: ${APPLICATION_NAME}
   ports:
     - port: 3000
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ${APPLICATION_NAME}
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
 
-    gethomepage.dev/enabled: "true"
-    gethomepage.dev/name: MQTT Alarm clock
-    gethomepage.dev/icon: mdi-alarm
-    gethomepage.dev/group: 1P
-
-spec:
-  tls:
-    - hosts:
-        - mqtt-alarm-clock.home.maximemoreillon.com
-      secretName: ${APPLICATION_NAME}-tls
-  rules:
-    - host: mqtt-alarm-clock.home.maximemoreillon.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: ${APPLICATION_NAME}
-                port:
-                  number: 3000
 ---
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
