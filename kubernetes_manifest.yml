@@ -86,6 +86,7 @@ metadata:
 spec:
   hostnames:
     - mqtt-alarm-clock.home.maximemoreillon.com
+    - mqtt-alarm-clock.private.maximemoreillon.com
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
