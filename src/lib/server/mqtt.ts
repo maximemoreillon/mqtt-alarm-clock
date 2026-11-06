@@ -4,7 +4,7 @@ import { env } from "$env/dynamic/private";
 const {
   MQTT_USERNAME,
   MQTT_PASSWORD,
-  MQTT_BROKER_URI = "mqtt://test.mosquitto.org",
+  MQTT_BROKER_URI,
   MQTT_TOPIC = "test",
   MQTT_PAYLOAD = "ON",
 } = env;
@@ -12,6 +12,10 @@ const {
 let client: MqttClient;
 
 export function init() {
+  // No default broker: falling back to a public one would leak credentials
+  // and alarm messages.
+  if (!MQTT_BROKER_URI) throw new Error("MQTT_BROKER_URI is not set");
+
   console.log(`[MQTT] Connecting to ${MQTT_BROKER_URI}`);
   const options: mqtt.IClientOptions = {
     username: MQTT_USERNAME,
