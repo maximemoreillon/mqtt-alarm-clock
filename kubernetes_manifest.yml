@@ -17,6 +17,9 @@ spec:
       containers:
         - name: ${APPLICATION_NAME}
           image: ${CONTAINER_IMAGE_TAGGED}
+          env:
+            - name: MQTT_BROKER_URI
+              value: mqtt://mqtt.mqtt:1883
           envFrom:
             - secretRef:
                 name: mqtt-alarm-clock-env-from-vault
